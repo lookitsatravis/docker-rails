@@ -1,7 +1,11 @@
-FROM lookitsatravis/ruby:2.2.3
+FROM lookitsatravis/docker-ruby:2.3.0
 MAINTAINER Travis Vignon <travis@lookitsatravis.com>
 
-ENV PORT 5000
+ENV APP_HOME /var/www
+ENV GEM_HOME /ruby_gems/2.3
+ENV BUNDLE_PATH /ruby_gems/2.3
+ENV PATH /ruby_gems/2.3/bin:$PATH
+ENV PORT 3000
 
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash - && \
 apt-get -qqy install nodejs -y; \
@@ -9,29 +13,23 @@ apt-get clean -y; \
 apt-get autoremove -y
 
 RUN apt-get -qq update;\
-apt-get -qqy install libpq-dev; \
-apt-get clean -y; \
-apt-get autoremove -y
+    apt-get -qqy install \
+        mysql-client \
+        postgresql-client \
+        sqlite3 \
+        libpq-dev; \
+    apt-get clean -y; \
+    apt-get autoremove -y
 
-RUN adduser web --shell /bin/bash --disabled-password --gecos ""
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
 
-RUN mkdir -p /var/bundle && chown -R web:web /var/bundle
-RUN mkdir -p /var/www && chown -R web:web /var/www
+# throw errors if Gemfile has been modified since Gemfile.lock
+RUN bundle config --global frozen 1
 
-ADD Gemfile /var/www/
-ADD Gemfile.lock /var/www/
-
-WORKDIR /var/www
+ONBUILD ADD . $APP_HOME
+ONBUILD ADD /script/start /script/start
 
 EXPOSE $PORT
 
-RUN su web -c "bundle config --global path /var/bundle"
-RUN su web -c "bundle install"
-
-ADD . /var/www
-
-RUN chown -R web:web /var/www
-
-USER web
-
-CMD bundle exec foreman start
+CMD ./script/start
