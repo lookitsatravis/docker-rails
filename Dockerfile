@@ -7,11 +7,6 @@ ENV BUNDLE_PATH /ruby_gems/2.3
 ENV PATH /ruby_gems/2.3/bin:$PATH
 ENV PORT 3000
 
-RUN curl -sL https://deb.nodesource.com/setup | sudo bash - && \
-apt-get -qqy install nodejs -y; \
-apt-get clean -y; \
-apt-get autoremove -y
-
 RUN apt-get -qq update;\
     apt-get -qqy install \
         mysql-client \
