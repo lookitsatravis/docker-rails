@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+echo "Bundling gems"
+bundle install --jobs 4 --retry 3
+
+echo "Generating Spring binstubs"
+bundle exec spring binstub --all
+
+echo "Clearing logs"
+bin/rake log:clear
+
+echo "Setting up new db if one doesn't exist"
+bin/rake db:version || { bundle exec rake db:setup; }
+
+echo "Removing contents of tmp dirs"
+bin/rake tmp:clear
+
+echo "Stopping existing app server"
+rm /var/www/tmp/pids/server.pid
+
+echo "Starting app server"
+bundle exec rails s -p 3000 -b 0.0.0.0
