@@ -1,10 +1,10 @@
-FROM lookitsatravis/docker-ruby:2.3.0
+FROM lookitsatravis/docker-ruby:2.3.1
 MAINTAINER Travis Vignon <travis@lookitsatravis.com>
 
 ENV APP_HOME /var/www
-ENV GEM_HOME /ruby_gems/2.3
-ENV BUNDLE_PATH /ruby_gems/2.3
-ENV PATH /ruby_gems/2.3/bin:$PATH
+ENV GEM_HOME /ruby_gems/2.3.1
+ENV BUNDLE_PATH /ruby_gems/2.3.1
+ENV PATH /ruby_gems/2.3.1/bin:$PATH
 ENV PORT 3000
 
 RUN apt-get -qq update;\
