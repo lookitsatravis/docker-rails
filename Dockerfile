@@ -7,10 +7,16 @@ ENV BUNDLE_PATH /ruby_gems/2.3.1
 ENV PATH /ruby_gems/2.3.1/bin:$PATH
 ENV PORT 3000
 
+# Load latest postgresql-client releases
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > \
+       /etc/apt/sources.list.d/pgdg.list && \
+       wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+           sudo apt-key add -
+
 RUN apt-get -qq update;\
     apt-get -qqy install \
         mysql-client \
-        postgresql-client \
+        postgresql-client-9.4 \
         sqlite3 \
         libpq-dev; \
     apt-get clean -y; \
