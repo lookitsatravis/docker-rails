@@ -1,4 +1,4 @@
-FROM lookitsatravis/docker-ruby:2.3.1
+FROM lookitsatravis/docker-ruby:2.3.1.1
 MAINTAINER Travis Vignon <travis@lookitsatravis.com>
 
 ENV APP_HOME /var/www
@@ -11,7 +11,7 @@ ENV PORT 3000
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > \
        /etc/apt/sources.list.d/pgdg.list && \
        wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-           sudo apt-key add -
+           apt-key add -
 
 RUN apt-get -qq update;\
     apt-get -qqy install \
