@@ -1,6 +1,6 @@
 # Rails
 
-Docker image to run Rails (using Ruby 2.3.3). Use this a base image for Rails applications.
+Docker image to run Rails (using Ruby 2.5.0). Use this a base image for Rails applications.
 
 Installs some common DB dependencies as well as Node for gems that need a JS runtime.
 It also allows for a mounted data volume for gems.
@@ -11,9 +11,9 @@ In order to use this effectively for development, you'll want to mount a data co
 for your gems. This is done so that you don't have to reinstall your gems every time you
 build this image.
 
-The default gem path is `/ruby_gems/2.3.3`.
+The default gem path is `/ruby_gems/2.5.0`.
 
-`docker create -v /ruby_gems/2.3.3 --name gems-2.3.3 busybox`
+`docker create -v /ruby_gems/2.5.0 --name gems-2.5.0 busybox`
 
 The build:
 
@@ -21,7 +21,7 @@ The build:
 
 And then when you run this container:
 
-`docker run -it --volumes-from gems-2.3.3 -p "3000:3000" docker-rails`
+`docker run -it --volumes-from gems-2.5.0 -p "3000:3000" docker-rails`
 
 ## Database
 
