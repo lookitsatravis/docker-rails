@@ -1,10 +1,10 @@
-FROM lookitsatravis/docker-ruby:2.5.0
-MAINTAINER Travis Vignon <travis@lookitsatravis.com>
+FROM lookitsatravis/docker-ruby:2.7.0
+LABEL maintainer="Travis Vignon <travis@lookitsatravis.com>"
 
 ENV APP_HOME /var/www
-ENV GEM_HOME /ruby_gems/2.5.0
-ENV BUNDLE_PATH /ruby_gems/2.5.0
-ENV PATH /ruby_gems/2.5.0/bin:$PATH
+ENV GEM_HOME /ruby_gems/2.7.0
+ENV BUNDLE_PATH /ruby_gems/2.7.0
+ENV PATH /ruby_gems/2.7.0/bin:$PATH
 ENV PORT 3000
 
 # Load latest postgresql-client releases
